@@ -1,4 +1,4 @@
-
+import { Task } from '../models/task.js'
 
 async function getTasks(req, res) {
     res.send('Listando de tareas')

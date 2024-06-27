@@ -3,11 +3,13 @@ import app from './app.js'
 import 'dotenv/config'
 import logger from './logs/logger.js'
 
-import { Sequelize } from './database/database.js'
+import { sequelize } from './database/database.js'
 
 //Funcion para ejecutar el servidor
 async function main() {
-    await sequelize.sync({ force})
+    //Iniciar sequelize
+    //await sequelize.sync({ force:true })
+    await sequelize.sync({ force:false })
 
     const port = process.env.PORT
     app.listen(port)

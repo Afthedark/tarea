@@ -1,5 +1,6 @@
 
 
 export const Status = {
-    ACTIVE
+    ACTIVE: 'active',
+    INACTIVE: 'inactive',
 }

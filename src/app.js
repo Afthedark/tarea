@@ -7,13 +7,16 @@ const app = express()
 //Importacion de rutas
 import usersRoutes from './routes/users.routes.js'
 import tasksRoutes from './routes/tasks.routes.js'
+import authRoutes from './routes/auth.routes.js'
 
 //Midleware
 app.use(morgan('dev'))
+app.use(express.json())
 
 // Rutas
 app.use('/api/users', usersRoutes)
 app.use('/api/tasks', tasksRoutes)
+app.use('/api.login', authRoutes)
 
 export default app
 

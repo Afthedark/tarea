@@ -1,7 +1,9 @@
 
-import { Status } from "constants";
-import { sequelize } from "../database/database";
-
+import { DataTypes } from "sequelize"
+import { Status } from "../constants/index.js"
+import { sequelize } from "../database/database.js"
+import { Task } from "./task.js"   
+import { encriptar } from '../common/bycript.js' 
 
 export const User = sequelize.define('users', {
     id: {
@@ -21,21 +23,48 @@ export const User = sequelize.define('users', {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    validate: {
-        notNull:{
-            msg: 'Ingrese password'
+        allowNull: false,
+        validate: {
+            notNull:{
+                msg: 'Ingrese password',
+            },
         },
     },
+    
     status:{
         type: DataTypes.STRING,
-        defaultValue: 'active'
+        defaultValue: Status.ACTIVE,
+        validate:{
+            isIn:{
+                arg: [[Status.ACTIVE, Status.INACTIVE]],
+                msg: `Debe ser ${Status.ACTIVE} o ${Status.INACTIVE}`,
+            },
+        },
     },
-    validate:{
-        isIn:{
-            arg: [['active', 'inactive']],
-            msg: 'Debe ser active o inactive'
-        }
+})
+
+//Forma automatica
+//Un usuarios tiene muchos tareas
+User.hasMany(Task)
+// pero una tarea tiene un usuario
+Task.belongsTo(User)
+
+
+User.beforeCreate(async (user) => {
+    try {
+        user.password = await encriptar(user.password)   
+    } catch (error) {
+    logger.error(error.message)
+    throw new Error('Error al ecriptar la contraseña') 
+    }
+})
+
+
+User.beforeUpdate(async (user) => {
+    try {
+        user.password = await encriptar(user.password)   
+    } catch (error) {
+    logger.error(error.message)
+    throw new Error('Error al encriptar la contraseña') 
     }
 })
