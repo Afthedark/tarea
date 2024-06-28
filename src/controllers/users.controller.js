@@ -40,9 +40,29 @@ async function createUser(req, res) {
     }
 }
 
+async function getUser(req, res){
+    const { id }= req.params
+    try {
+        const user = await User.findOne({
+            attributes: ['username', 'status'],
+            where: { id },
+        })
+        if (!user) 
+            return res.status(404).json({ message: 'Usuario no encontrado' })
+        
+        res.json(user)
+    } catch (error) {
+        logger.error(error.message)
+        res.status(500).json({
+            message: error.message,
+        })
+    }
+}
+
 export default{
     getUsers,
-    createUser
+    createUser,
+    getUser,
 }
 
 

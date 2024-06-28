@@ -16,10 +16,10 @@ app.use(express.json())
 // Rutas
 app.use('/api/users', usersRoutes)
 app.use('/api/tasks', tasksRoutes)
-app.use('/api.login', authRoutes)
+app.use('/api/login', authRoutes)
 
 export default app
 
 
-
+  
 

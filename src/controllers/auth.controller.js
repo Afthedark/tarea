@@ -3,13 +3,14 @@ import { User } from "../models/user.js"
 import { comparar } from '../common/bycript.js' 
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
+import { Status } from "../constants/index.js"
 
 
 async function login(req, res){
     try{
         const { username, password } = req.body
         const user = await User.findOne({
-            where: { username }
+            where: { username, status: Status.ACTIVE },
         })
 
         if(!user) 
@@ -19,8 +20,9 @@ async function login(req, res){
             return res.status(403).json({message: 'Usuario no autorizado'})
 
         const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
-            expiresIn: eval(process.env.JWT_EXPIRES_SECOND)
+            expiresIn: eval(process.env.JWT_EXPIRES_SECOND),
         })
+        res.json({ token })
     }catch(error){
     logger.error(error.message)
         res.status(500).json({
@@ -28,4 +30,13 @@ async function login(req, res){
         })
     }
 }
+
+
+
+export default { login }
     
+
+
+
+
+

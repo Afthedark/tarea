@@ -10,6 +10,10 @@ router
     .post(usersController.createUser)
 
 
+router.route('/:id').get(usersController.getUser)
+
+
+
 export default router
 
 
