@@ -9,7 +9,7 @@ import { sequelize } from './database/database.js'
 async function main() {
     //Iniciar sequelize
     //await sequelize.sync({ force:true })
-    await sequelize.sync({ force:false })
+    await sequelize.sync({ force:true })
 
     const port = process.env.PORT
     app.listen(port)
