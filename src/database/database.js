@@ -1,7 +1,7 @@
 
 import { Sequelize } from "sequelize"
 import 'dotenv/config'
-import { Status } from "../constants"
+import { Status } from "../constants/index.js"
 
 export const sequelize = new Sequelize(
     process.env.DB_DATABASE, //db name
