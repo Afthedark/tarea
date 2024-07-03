@@ -36,7 +36,7 @@ export const User = sequelize.define('users', {
         defaultValue: Status.ACTIVE,
         validate:{
             isIn:{
-                arg: [[Status.ACTIVE, Status.INACTIVE]],
+                args: [[Status.ACTIVE, Status.INACTIVE]], // Cambiado de "arg" a "args"
                 msg: `Debe ser ${Status.ACTIVE} o ${Status.INACTIVE}`,
             },
         },
@@ -68,3 +68,4 @@ User.beforeUpdate(async (user) => {
     throw new Error('Error al encriptar la contraseña') 
     }
 })
+
