@@ -1,7 +1,9 @@
 
-import { Sequelize } from "sequelize"
 import 'dotenv/config'
-import { Status } from "../constants/index.js"
+//import { Sequelize } from "sequelize"
+//import { Status } from "../constants/index.js"
+const Sequelize = require('sequelize').Sequelize
+const { Status } = require('../constants/index.js')
 
 export const sequelize = new Sequelize(
     process.env.DB_DATABASE, //db name
@@ -15,5 +17,6 @@ export const sequelize = new Sequelize(
     }
 )
 
+module.exports = { sequelize }
 
 
