@@ -10,7 +10,7 @@ export const Task = sequelize.define('tasks', {
         primaryKey: true,
         autoIncrement: true,
     },
-    username: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
