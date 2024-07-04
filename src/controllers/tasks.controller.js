@@ -5,7 +5,7 @@ async function getTasks(req, res) {
     const { userId } = req.user
     try {
         const task = await Task.findAll({
-            attributes : ['id', 'username', 'done'],
+            attributes : ['id', 'name', 'done'],
             order: [['id', 'ASC']],
             where: {
                 userId,
